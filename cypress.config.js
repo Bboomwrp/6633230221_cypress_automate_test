@@ -1,10 +1,9 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  projectId: 'y9bj3k',
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+    baseUrl: "http://zero.webappsecurity.com",
+    supportFile: false, // 🔹 ปิดการใช้ support file
   },
+  projectId: "y9bj3k"
 });

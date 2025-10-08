@@ -1,0 +1,20 @@
+image: cypress/included:13.3.0
+
+stages:
+  - test
+
+cache:
+  paths:
+    - node_modules/
+
+test_cypress:
+  stage: test
+  script:
+    - npm ci
+    - npx cypress run --record --key $CYPRESS_RECORD_KEY --spec "cypress/e2e/EX04-pom.cy.js"
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/**/*.mp4
+      - cypress/screenshots/**/*.png
+    expire_in: 1 week
