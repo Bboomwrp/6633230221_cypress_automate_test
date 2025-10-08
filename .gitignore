@@ -1,0 +1,9 @@
+# Node modules
+node_modules/
+
+# Cypress cache
+.cache/
+CypressCache/
+cypress/.cache/
+
+cypress.env.json
