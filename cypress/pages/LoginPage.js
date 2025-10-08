@@ -1,22 +1,30 @@
-const Page = require('./Page')
+class LoginPage {
+  visit() {
+    cy.visit('http://zero.webappsecurity.com/login.html');
+  }
 
-class LoginPage extends Page {
-    //Web Elements
-    static txtUsername = '#txt-username'
-    static txtPassword = '#txt-password'
-    static btnLogin = '#btn-login'
-    static msgAlert = '.lead.text-danger'
-    
-    //Methods
-    static inputLoginForm(username,password) {
-        cy.get(this.txtUsername).type(username)
-        cy.get(this.txtPassword).type(password)
-        cy.get(this.btnLogin).click()
-    }
+  fillUsername(username) {
+    cy.get('#user_login').type(username);
+  }
 
-    static canDisplayAlert(msg) {
-        cy.get(this.msgAlert).should('have.text', msg)
-    }
+  fillPassword(password) {
+    cy.get('#user_password').type(password);
+  }
+
+  submit() {
+    cy.get('input[name="submit"]').click();
+  }
+
+  assertLoginSuccess() {
+    cy.url().should('include', '/account-summary.html');
+    cy.get('h2').should('contain', 'Cash Accounts');
+  }
+
+  assertLoginFailed() {
+    cy.get('.alert-error')
+      .should('be.visible')
+      .and('contain', 'Login and/or password are wrong.');
+  }
 }
 
-module.exports = LoginPage
+export default new LoginPage();
